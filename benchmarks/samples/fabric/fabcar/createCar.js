@@ -43,7 +43,9 @@ module.exports.run = function() {
         chaincodeArguments: [carNumber, carMake, carModel, carColor, carOwner]
     };
 
-    return bc.invokeSmartContract(contx, 'fabcar', 'v1', args, 30);
+    let targetCC = txIndex % 2 === 0 ? 'fabcar' : 'yourfabcar';
+
+    return bc.invokeSmartContract(contx, targetCC, 'v1', args, 30);
 };
 
 module.exports.end = function() {

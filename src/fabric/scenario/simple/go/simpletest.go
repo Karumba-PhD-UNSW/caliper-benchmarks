@@ -15,9 +15,10 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"strconv"
-
+	"log"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
@@ -41,6 +42,8 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 
 func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	function, args := stub.GetFunctionAndParameters()
+	myarg,_ := json.Marshal(args)
+	log.Println("Invoke: Function: %s args: %s\n", function, string(myarg))
 
 	if function == "open" {
 		return t.Open(stub, args)
@@ -108,6 +111,8 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, args []string)
 	money, err := stub.GetState(args[0])
 	if err != nil {
 		s := fmt.Sprintf(ERROR_SYSTEM, err.Error())
+		myarg,_ := json.Marshal(money)
+		log.Println("Query: arg: %s result: %s\n", myarg, string(s))
 		return shim.Error(s)
 	}
 

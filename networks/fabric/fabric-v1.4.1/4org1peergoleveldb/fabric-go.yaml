@@ -1,0 +1,513 @@
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+name: Fabric
+version: "1.0"
+mutual-tls: false
+
+caliper:
+  blockchain: fabric
+  command:
+    start: export FABRIC_VERSION=1.4.1;docker-compose -f networks/fabric/docker-compose/4org1peergoleveldb/docker-compose.yaml up -d;sleep 3s
+    end: docker-compose -f networks/fabric/docker-compose/4org1peergoleveldb/docker-compose.yaml down;(test -z \"$(docker ps -aq)\") || docker rm $(docker ps -aq);(test -z \"$(docker images dev* -q)\") || docker rmi $(docker images dev* -q);rm -rf /tmp/hfc-*
+
+info:
+  Version: 1.4.1
+  Size: 9 Orgs with 1 Peer each
+  Orderer: Solo,
+  Distribution: Single Host
+  StateDB: GoLevelDB
+
+clients:
+  client0.org1.example.com:
+    client:
+      organization: Org1
+      credentialStore:
+        path: /tmp/hfc-kvs/org1
+        cryptoStore:
+          path: /tmp/hfc-cvs/org1
+      clientPrivateKey:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/key.pem
+      clientSignedCert:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem
+
+  client0.org2.example.com:
+    client:
+      organization: Org2
+      credentialStore:
+        path: /tmp/hfc-kvs/org2
+        cryptoStore:
+          path: /tmp/hfc-cvs/org2
+      clientPrivateKey:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/keystore/key.pem
+      clientSignedCert:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/signcerts/User1@org2.example.com-cert.pem
+
+  client0.org3.example.com:
+    client:
+      organization: Org3
+      credentialStore:
+        path: /tmp/hfc-kvs/org3
+        cryptoStore:
+          path: /tmp/hfc-cvs/org3
+      clientPrivateKey:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org3.example.com/users/User1@org3.example.com/msp/keystore/key.pem
+      clientSignedCert:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org3.example.com/users/User1@org3.example.com/msp/signcerts/User1@org3.example.com-cert.pem
+
+  client0.org4.example.com:
+    client:
+      organization: Org4
+      credentialStore:
+        path: /tmp/hfc-kvs/org4
+        cryptoStore:
+          path: /tmp/hfc-cvs/org4
+      clientPrivateKey:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org4.example.com/users/User1@org4.example.com/msp/keystore/key.pem
+      clientSignedCert:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org4.example.com/users/User1@org4.example.com/msp/signcerts/User1@org4.example.com-cert.pem
+
+  client0.org5.example.com:
+      client:
+        organization: Org5
+        credentialStore:
+          path: /tmp/hfc-kvs/org5
+          cryptoStore:
+            path: /tmp/hfc-cvs/org5
+        clientPrivateKey:
+          path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org5.example.com/users/User1@org5.example.com/msp/keystore/key.pem
+        clientSignedCert:
+          path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org5.example.com/users/User1@org5.example.com/msp/signcerts/User1@org5.example.com-cert.pem
+
+  client0.org6.example.com:
+      client:
+        organization: Org6
+        credentialStore:
+          path: /tmp/hfc-kvs/org6
+          cryptoStore:
+            path: /tmp/hfc-cvs/org6
+        clientPrivateKey:
+          path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org6.example.com/users/User1@org6.example.com/msp/keystore/key.pem
+        clientSignedCert:
+          path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org6.example.com/users/User1@org6.example.com/msp/signcerts/User1@org6.example.com-cert.pem
+
+  client0.org7.example.com:
+      client:
+        organization: Org7
+        credentialStore:
+          path: /tmp/hfc-kvs/org7
+          cryptoStore:
+            path: /tmp/hfc-cvs/org7
+        clientPrivateKey:
+          path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org7.example.com/users/User1@org7.example.com/msp/keystore/key.pem
+        clientSignedCert:
+          path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org7.example.com/users/User1@org7.example.com/msp/signcerts/User1@org7.example.com-cert.pem
+
+  client0.org8.example.com:
+      client:
+        organization: Org8
+        credentialStore:
+          path: /tmp/hfc-kvs/org8
+          cryptoStore:
+            path: /tmp/hfc-cvs/org8
+        clientPrivateKey:
+          path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org8.example.com/users/User1@org8.example.com/msp/keystore/key.pem
+        clientSignedCert:
+          path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org8.example.com/users/User1@org8.example.com/msp/signcerts/User1@org8.example.com-cert.pem
+
+  client0.org9.example.com:
+      client:
+        organization: Org9
+        credentialStore:
+          path: /tmp/hfc-kvs/org9
+          cryptoStore:
+            path: /tmp/hfc-cvs/org9
+        clientPrivateKey:
+          path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org9.example.com/users/User1@org9.example.com/msp/keystore/key.pem
+        clientSignedCert:
+          path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org9.example.com/users/User1@org9.example.com/msp/signcerts/User1@org9.example.com-cert.pem
+    
+# channels:
+#   mychannel:
+#     configBinary: networks/fabric/config_multi_solo/mychannel.tx
+#     # definition:
+#     #   capabilities: []
+#     #   consortium: SampleConsortiumOne
+#     #   msps: ['Org1MSP', 'Org2MSP','Org3MSP']
+#     #   version: 0
+#     created: false
+#     orderers:
+#     - orderer.example.com
+#     peers:
+#       peer0.org1.example.com:
+#         eventSource: true
+#       peer0.org2.example.com:
+#         eventSource: true
+#       peer0.org3.example.com:
+#         eventSource: true
+
+#     chaincodes:
+#     - id: marbles
+#       version: v0
+#       language: golang
+#       path: fabric/samples/marbles/go
+#       metadataPath: src/fabric/samples/marbles/go/metadata
+#     - id: drm
+#       version: v0
+#       language: golang
+#       path: fabric/scenario/drm/go
+#     - id: simple
+#       version: v0
+#       language: golang
+#       path: fabric/scenario/simple/go
+#     - id: smallbank
+#       version: v0
+#       language: golang
+#       path: fabric/scenario/smallbank/go
+    
+
+#   mychanneltwo:
+#     configBinary: networks/fabric/config_multi_solo/mychanneltwo.tx
+#     # definition:
+#     #   capabilities: []
+#     #   consortium: SampleConsortiumTwo
+#     #   msps: ['Org3MSP','Org4MSP']
+#     #   version: 0
+#     created: false
+#     orderers:
+#     - orderer.example.com
+#     peers:
+#       peer1.org3.example.com:
+#         eventSource: true
+#       peer0.org4.example.com:
+#         eventSource: true
+      
+#     chaincodes:
+#     - id: marbles
+#       version: v0
+#       language: golang
+#       path: fabric/samples/marbles/go
+#       metadataPath: src/fabric/samples/marbles/go/metadata
+#     - id: drm
+#       version: v0
+#       language: golang
+#       path: fabric/scenario/drm/go
+#     - id: simple
+#       version: v0
+#       language: golang
+#       path: fabric/scenario/simple/go
+#     - id: smallbank
+#       version: v0
+#       language: golang
+#       path: fabric/scenario/smallbank/go
+    
+channels:
+  mychannel:
+    configBinary: networks/fabric/config_multi_solo/mychannel.tx
+    created: false
+    orderers:
+    - orderer.example.com
+    peers:
+      peer0.org1.example.com:
+        eventSource: true
+      peer0.org2.example.com:
+        eventSource: true
+      peer0.org3.example.com:
+        eventSource: true
+      peer0.org4.example.com:
+        eventSource: true
+      peer0.org5.example.com:
+        eventSource: true
+
+    chaincodes:
+    - id: asset
+      contractID: myasset
+      targetPeers:
+        - peer0.org3.example.com
+        - peer0.org4.example.com
+        - peer0.org5.example.com
+      version: v0
+      language: golang
+      path: energypie/src
+
+  mychanneltwo:
+    configBinary: networks/fabric/config_multi_solo/mychanneltwo.tx
+    created: false
+    orderers:
+    - orderer.example.com
+    peers:
+      peer0.org3.example.com:
+        eventSource: true
+      peer0.org4.example.com:
+        eventSource: true
+      peer0.org5.example.com:
+        eventSource: true
+      peer0.org6.example.com:
+        eventSource: true
+      peer0.org7.example.com:
+        eventSource: true
+      peer0.org8.example.com:
+        eventSource: true
+      peer0.org9.example.com:
+        eventSource: true
+
+    chaincodes:
+    - id: asset
+      contractID: yourasset
+      targetPeers:
+        - peer0.org3.example.com
+        - peer0.org4.example.com
+        - peer0.org5.example.com
+      version: v0
+      language: golang
+      path: energypie/src
+    
+
+organizations:
+  Org1:
+    mspid: Org1MSP
+    peers:
+    - peer0.org1.example.com
+    certificateAuthorities:
+    - ca.org1.example.com
+    adminPrivateKey:
+      path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/key.pem
+    signedCert:
+      path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem
+
+  Org2:
+    mspid: Org2MSP
+    peers:
+    - peer0.org2.example.com
+    certificateAuthorities:
+    - ca.org2.example.com
+    adminPrivateKey:
+      path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore/key.pem
+    signedCert:
+      path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts/Admin@org2.example.com-cert.pem
+
+  Org3:
+      mspid: Org3MSP
+      peers:
+      - peer0.org3.example.com
+      certificateAuthorities:
+      - ca.org3.example.com
+      adminPrivateKey:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp/keystore/key.pem
+      signedCert:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp/signcerts/Admin@org3.example.com-cert.pem
+  Org4:
+      mspid: Org4MSP
+      peers:
+      - peer0.org4.example.com
+      certificateAuthorities:
+      - ca.org4.example.com
+      adminPrivateKey:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org4.example.com/users/Admin@org4.example.com/msp/keystore/key.pem
+      signedCert:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org4.example.com/users/Admin@org4.example.com/msp/signcerts/Admin@org4.example.com-cert.pem
+
+  Org5:
+      mspid: Org5MSP
+      peers:
+      - peer0.org5.example.com
+      certificateAuthorities:
+      - ca.org5.example.com
+      adminPrivateKey:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org5.example.com/users/Admin@org5.example.com/msp/keystore/key.pem
+      signedCert:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org5.example.com/users/Admin@org5.example.com/msp/signcerts/Admin@org5.example.com-cert.pem
+
+  Org6:
+      mspid: Org6MSP
+      peers:
+      - peer0.org6.example.com
+      certificateAuthorities:
+      - ca.org6.example.com
+      adminPrivateKey:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org6.example.com/users/Admin@org6.example.com/msp/keystore/key.pem
+      signedCert:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org6.example.com/users/Admin@org6.example.com/msp/signcerts/Admin@org6.example.com-cert.pem
+
+  Org7:
+      mspid: Org7MSP
+      peers:
+      - peer0.org7.example.com
+      certificateAuthorities:
+      - ca.org7.example.com
+      adminPrivateKey:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org7.example.com/users/Admin@org7.example.com/msp/keystore/key.pem
+      signedCert:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org7.example.com/users/Admin@org7.example.com/msp/signcerts/Admin@org7.example.com-cert.pem
+
+  Org8:
+      mspid: Org8MSP
+      peers:
+      - peer0.org8.example.com
+      certificateAuthorities:
+      - ca.org8.example.com
+      adminPrivateKey:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org8.example.com/users/Admin@org8.example.com/msp/keystore/key.pem
+      signedCert:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org8.example.com/users/Admin@org8.example.com/msp/signcerts/Admin@org8.example.com-cert.pem
+
+  Org9:
+      mspid: Org9MSP
+      peers:
+      - peer0.org9.example.com
+      certificateAuthorities:
+      - ca.org9.example.com
+      adminPrivateKey:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org9.example.com/users/Admin@org9.example.com/msp/keystore/key.pem
+      signedCert:
+        path: networks/fabric/config_multi_solo/crypto-config/peerOrganizations/org9.example.com/users/Admin@org9.example.com/msp/signcerts/Admin@org9.example.com-cert.pem
+
+  
+orderers:
+  orderer.example.com:
+    url: grpc://localhost:7050
+    grpcOptions:
+      ssl-target-name-override: orderer.example.com
+
+peers:
+  peer0.org1.example.com:
+    url: grpc://localhost:7051
+    grpcOptions:
+      ssl-target-name-override: peer0.org1.example.com
+      grpc.keepalive_time_ms: 600000
+
+  peer0.org2.example.com:
+    url: grpc://localhost:8051
+    grpcOptions:
+      ssl-target-name-override: peer0.org2.example.com
+      grpc.keepalive_time_ms: 600000
+
+  peer0.org3.example.com:
+    url: grpc://localhost:9051
+    grpcOptions:
+      ssl-target-name-override: peer0.org3.example.com
+      grpc.keepalive_time_ms: 600000
+
+  peer0.org4.example.com:
+    url: grpc://localhost:10051
+    grpcOptions:
+      ssl-target-name-override: peer0.org4.example.com
+      grpc.keepalive_time_ms: 600000
+
+  peer0.org5.example.com:
+    url: grpc://localhost:11051
+    grpcOptions:
+      ssl-target-name-override: peer0.org5.example.com
+      grpc.keepalive_time_ms: 600000
+
+
+  peer0.org6.example.com:
+    url: grpc://localhost:12051
+    grpcOptions:
+      ssl-target-name-override: peer0.org6.example.com
+      grpc.keepalive_time_ms: 600000
+
+
+  peer0.org7.example.com:
+    url: grpc://localhost:13051
+    grpcOptions:
+      ssl-target-name-override: peer0.org7.example.com
+      grpc.keepalive_time_ms: 600000
+
+
+  peer0.org8.example.com:
+    url: grpc://localhost:14051
+    grpcOptions:
+      ssl-target-name-override: peer0.org8.example.com
+      grpc.keepalive_time_ms: 600000
+
+  peer0.org9.example.com:
+    url: grpc://localhost:15051
+    grpcOptions:
+      ssl-target-name-override: peer0.org9.example.com
+      grpc.keepalive_time_ms: 600000
+
+
+certificateAuthorities:
+  ca.org1.example.com:
+    url: http://localhost:7054
+    httpOptions:
+      verify: false
+    registrar:
+    - enrollId: admin
+      enrollSecret: adminpw
+
+  ca.org2.example.com:
+    url: http://localhost:8054
+    httpOptions:
+      verify: false
+    registrar:
+    - enrollId: admin
+      enrollSecret: adminpw
+
+  ca.org3.example.com:
+    url: http://localhost:9054
+    httpOptions:
+      verify: false
+    registrar:
+    - enrollId: admin
+      enrollSecret: adminpw
+
+  ca.org4.example.com:
+    url: http://localhost:10054
+    httpOptions:
+      verify: false
+    registrar:
+    - enrollId: admin
+      enrollSecret: adminpw
+
+  ca.org5.example.com:
+    url: http://localhost:11054
+    httpOptions:
+      verify: false
+    registrar:
+    - enrollId: admin
+      enrollSecret: adminpw
+
+  ca.org6.example.com:
+    url: http://localhost:12054
+    httpOptions:
+      verify: false
+    registrar:
+    - enrollId: admin
+      enrollSecret: adminpw
+
+  ca.org7.example.com:
+    url: http://localhost:13054
+    httpOptions:
+      verify: false
+    registrar:
+    - enrollId: admin
+      enrollSecret: adminpw
+
+  ca.org8.example.com:
+    url: http://localhost:14054
+    httpOptions:
+      verify: false
+    registrar:
+    - enrollId: admin
+      enrollSecret: adminpw
+
+  ca.org9.example.com:
+    url: http://localhost:15054
+    httpOptions:
+      verify: false
+    registrar:
+    - enrollId: admin
+      enrollSecret: adminpw

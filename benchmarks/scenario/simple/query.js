@@ -19,6 +19,7 @@ module.exports.info  = 'querying accounts';
 
 let bc, contx;
 let account_array;
+let txIndex = 0;
 
 module.exports.init = function(blockchain, context, args) {
     const open = require('./open.js');
@@ -31,6 +32,7 @@ module.exports.init = function(blockchain, context, args) {
 
 module.exports.run = function() {
     const acc  = account_array[Math.floor(Math.random()*(account_array.length))];
+    txIndex++;
 
     if (bc.bcType === 'fabric') {
         let args = {
@@ -41,6 +43,7 @@ module.exports.run = function() {
         return bc.bcObj.querySmartContract(contx, 'simple', 'v0', args, 10);
     } else {
         // NOTE: the query API is not consistent with the invoke API
+        let targetCC = txIndex % 2 === 0 ? 'simple' : 'simpletwo';
         return bc.queryState(contx, 'simple', 'v0', acc);
     }
 };

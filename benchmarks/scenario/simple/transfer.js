@@ -20,6 +20,7 @@ module.exports.info = 'transfering money';
 let bc, contx;
 let account_array;
 let initmoney;
+let txIndex = 0;
 
 module.exports.init = function (blockchain, context, args) {
     const open = require('./open.js');
@@ -38,6 +39,7 @@ module.exports.run = function () {
     const account1 = account_array[Math.floor(Math.random() * (account_array.length))];
     const account2 = account_array[Math.floor(Math.random() * (account_array.length))];
     let args;
+    txIndex++;
 
     if (bc.bcType === 'fabric') {
         args = {
@@ -52,7 +54,7 @@ module.exports.run = function () {
             'money': initmoney.toString()
         };
     }
-
+    let targetCC = txIndex % 2 === 0 ? 'simple' : 'simpletwo';
     return bc.invokeSmartContract(contx, 'simple', 'v0', args, 10);
 
 };

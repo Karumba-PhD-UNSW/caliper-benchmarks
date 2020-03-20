@@ -20,6 +20,8 @@ let account_array = [];
 let txnPerBatch;
 let initMoney;
 let bc, contx;
+let txIndex = 0;
+
 module.exports.init = function(blockchain, context, args) {
     if(!args.hasOwnProperty('money')) {
         return Promise.reject(new Error('simple.open - \'money\' is missed in the arguments'));
@@ -92,6 +94,9 @@ function generateWorkload() {
 
 module.exports.run = function() {
     let args = generateWorkload();
+    txIndex++;
+
+    let targetCC = txIndex % 2 === 0 ? 'simple' : 'simpletwo';
     return bc.invokeSmartContract(contx, 'simple', 'v0', args, 100);
 };
 
